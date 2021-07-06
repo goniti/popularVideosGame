@@ -4,6 +4,7 @@ import { Pagination } from '@material-ui/lab'
 import Header from '../Header'
 import Loader from '../Loader'
 import Card from '../Card'
+import Main from '../Main'
 
 import styled from 'styled-components'
 import { Normalize } from 'styled-normalize'
@@ -56,19 +57,20 @@ function App() {
 
   if (loading && dataGame.length === 0) return <Loader />
   if (error) return <span>Error while loading data...</span>
-console.log(dataGame);
+
   return (
     <WrapperApp>
       <Normalize />
       <GlobalStyle />
       <Header />
 
+<Main> 
         {
             dataIsLoad && dataGame.results.map((result) => {
                 return <Card key={result.id} data={result} />
             })
         }
-
+</Main>
       <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
     </WrapperApp>
   )
