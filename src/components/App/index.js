@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {createGlobalStyle} from 'styled-components'
-import {Normalize} from 'styled-normalize'
+import { useEffect, useState } from 'react'
+import { createGlobalStyle } from 'styled-components'
+import { Normalize } from 'styled-normalize'
 import '../../styles/font.css'
-import { Pagination } from '@material-ui/lab';
+import { Pagination } from '@material-ui/lab'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -12,33 +12,41 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
-    const [error, setError] = useState(false)
-    const [loading, setLoading] = useState(true)
-    const [dataGame, setDataGame] = useState([])
-    const pageCount = Math.ceil(dataGame.count/20)
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [dataGame, setDataGame] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageCount = Math.ceil(dataGame.count / 20)
 
-    useEffect(() => {
-        fetch(`https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&dates=2020-01-01,2020-12-31&platforms=18,1,7`)
-            .then(response => response.json())
-            .then(json => {
-                setDataGame(json)
-                setError(false)
-            })
-            .catch(() => {
-                setError(true)
-            })
-            .finally(() => {
-                setLoading(true)
-            })
-    }, [])
+  const handleChangePage = (event) => {
+    let target = parseInt(event.target.textContent)
+    setCurrentPage(target)
+  }
 
-    if (loading && dataGame.length === 0) return <span>Loading...</span>
-    if (error) return <span>Error while loading data...</span>
+  useEffect(() => {
+    fetch(
+      `https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&dates=2020-01-01,2020-12-31&platforms=18,1,7&page${currentPage}`,
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        setDataGame(json)
+        setError(false)
+      })
+      .catch(() => {
+        setError(true)
+      })
+      .finally(() => {
+        setLoading(true)
+      })
+  }, [currentPage])
+  console.log(dataGame.results)
+  if (loading && dataGame.length === 0) return <span>Loading...</span>
+  if (error) return <span>Error while loading data...</span>
   return (
     <div className="App">
       <Normalize />
       <GlobalStyle />
-        <Pagination count={pageCount} />
+      <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
     </div>
   )
 }
