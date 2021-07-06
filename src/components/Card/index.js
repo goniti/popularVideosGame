@@ -4,33 +4,42 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components'
 
 const Tag = styled.p`
-  color: red;
+  color: #800080;
 `
+const useStyles = makeStyles({
+  root: {
+    width: 345,
+  },
+  media: {
+    height: 140,
+  },
+});
 
 export default function MediaCard(data) {
-  console.log(data)
+  const classes = useStyles();
+
   return (
-    <Card>
+    <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia image={data.background_image} title={data.name} />
+        <CardMedia className={classes.media} image={data.data.background_image} title={data.data.name} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {data.name}
+            {data.data.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Date de sortie: {data.released}
+            Date de sortie: {data.data.released}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            catégories:{' '}
-            {/*{data.genres.map((tag) => (*/}
-            {/*  <Tag key={tag.id}>{tag.name}</Tag>*/}
-            {/*))}*/}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Date de sortie: {data.released}
+         
+            { data.data.genres.map((tag) => (
+             <Tag key={tag.id}>{tag.name}</Tag>
+            ))
+            }
+                <Typography variant="body2" color="textSecondary" component="p">
+            Classement: {data.data.released}
           </Typography>
         </CardContent>
       </CardActionArea>
