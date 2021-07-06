@@ -1,14 +1,23 @@
 import { useEffect, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 import { Normalize } from 'styled-normalize'
 import '../../styles/font.css'
 import { Pagination } from '@material-ui/lab'
-
+import Header from '../Header'
+import Loader from '../Loader'
+import Cards from '../Cards'
 const GlobalStyle = createGlobalStyle`
   body {
 		font-family: 'Roboto', sans-serif;
 		text-align: center;
 	}
+`
+const WrapperApp = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `
 
 function App() {
@@ -20,7 +29,8 @@ function App() {
 
   const handleChangePage = (event) => {
     let target = parseInt(event.target.textContent)
-    setCurrentPage(target)
+      setCurrentPage(target)
+      setLoading(false)
   }
 
   useEffect(() => {
@@ -31,6 +41,7 @@ function App() {
       .then((json) => {
         setDataGame(json)
         setError(false)
+        setLoading(true)
       })
       .catch(() => {
         setError(true)
@@ -40,14 +51,16 @@ function App() {
       })
   }, [currentPage])
   console.log(dataGame.results)
-  if (loading && dataGame.length === 0) return <span>Loading...</span>
+  if (loading && dataGame.length === 0) return <Loader />
   if (error) return <span>Error while loading data...</span>
   return (
-    <div className="App">
+    <WrapperApp>
       <Normalize />
       <GlobalStyle />
+      <Header />
+        <Cards/>
       <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
-    </div>
+    </WrapperApp>
   )
 }
 
