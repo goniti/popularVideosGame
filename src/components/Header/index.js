@@ -5,6 +5,6 @@ const Title = styled.h1`
   font-size: 2rem;
 `
 
-const Header = () => <Title> List Popular Videos Game  </Title>
+const Header = () => <Title> List Popular Videos Game </Title>
 
 export default Header

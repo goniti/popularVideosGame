@@ -34,8 +34,8 @@ function App() {
 
   const handleChangePage = (event) => {
     let target = parseInt(event.target.textContent)
-      setCurrentPage(target)
-      setLoading(false)
+    setCurrentPage(target)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -64,13 +64,12 @@ function App() {
       <GlobalStyle />
       <Header />
 
-<Main> 
-        {
-            dataIsLoad && dataGame.results.map((result) => {
-                return <Card key={result.id} data={result} />
-            })
-        }
-</Main>
+      <Main>
+        {dataIsLoad &&
+          dataGame.results.map((result) => {
+            return <Card key={result.id} data={result} />
+          })}
+      </Main>
       <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
     </WrapperApp>
   )
