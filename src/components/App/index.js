@@ -6,7 +6,7 @@ import '../../styles/font.css'
 import { Pagination } from '@material-ui/lab'
 import Header from '../Header'
 import Loader from '../Loader'
-import Cards from '../Cards'
+import Card from '../Card'
 const GlobalStyle = createGlobalStyle`
   body {
 		font-family: 'Roboto', sans-serif;
@@ -26,6 +26,7 @@ function App() {
   const [dataGame, setDataGame] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const pageCount = Math.ceil(dataGame.count / 20)
+    const dataIsLoad = dataGame.length > 0
 
   const handleChangePage = (event) => {
     let target = parseInt(event.target.textContent)
@@ -53,12 +54,17 @@ function App() {
   console.log(dataGame.results)
   if (loading && dataGame.length === 0) return <Loader />
   if (error) return <span>Error while loading data...</span>
+    console.log("dataGame",dataGame)
   return (
     <WrapperApp>
       <Normalize />
       <GlobalStyle />
       <Header />
-        <Cards/>
+        {
+            dataIsLoad && dataGame.results.map((result) => {
+                return <Card key={result.id} data={result} />
+            })
+        }
       <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
     </WrapperApp>
   )

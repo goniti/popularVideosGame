@@ -1,29 +1,39 @@
-import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import React from 'react'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
+import styled from 'styled-components'
 
-export default function MediaCard() {
+const Tag = styled.p`
+  color: red;
+`
 
-    return (
-        <Card >
-            <CardActionArea>
-                <CardMedia
-                    image="/static/images/cards/contemplative-reptile.jpg"
-                    title="Contemplative Reptile"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        Lizard
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
-    );
+export default function MediaCard(data) {
+  console.log(data)
+  return (
+    <Card>
+      <CardActionArea>
+        <CardMedia image={data.background_image} title={data.name} />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {data.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Date de sortie: {data.released}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            catégories:{' '}
+            {/*{data.genres.map((tag) => (*/}
+            {/*  <Tag key={tag.id}>{tag.name}</Tag>*/}
+            {/*))}*/}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Date de sortie: {data.released}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  )
 }
