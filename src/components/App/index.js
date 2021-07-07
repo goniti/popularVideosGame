@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
+import { Normalize } from 'styled-normalize'
 import { Pagination } from '@material-ui/lab'
+import { Box } from '@material-ui/core'
+
 import Header from '../Header'
 import Loader from '../Loader'
 import Card from '../Card'
 import Main from '../Main'
-
-import styled from 'styled-components'
-import { Normalize } from 'styled-normalize'
 import '../../styles/font.css'
 
 const GlobalStyle = createGlobalStyle`
@@ -15,13 +15,6 @@ const GlobalStyle = createGlobalStyle`
 		font-family: 'Roboto', sans-serif;
 		text-align: center;
 	}
-`
-
-const WrapperApp = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `
 
 function App() {
@@ -59,19 +52,18 @@ function App() {
   if (error) return <span>Error while loading data...</span>
 
   return (
-    <WrapperApp>
+    <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
       <Normalize />
       <GlobalStyle />
       <Header />
-
+      <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
       <Main>
         {dataIsLoad &&
           dataGame.results.map((result) => {
             return <Card key={result.id} data={result} />
           })}
       </Main>
-      <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
-    </WrapperApp>
+    </Box>
   )
 }
 

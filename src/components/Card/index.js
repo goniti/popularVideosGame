@@ -11,14 +11,14 @@ const useStyles = makeStyles({
     height: 140,
   },
   chip: {
-      margin: 2
+    margin: 2,
   },
   typo: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    lineHeight:4
-  }
+    lineHeight: 4,
+  },
 })
 
 export default function MediaCard(data) {
@@ -35,11 +35,9 @@ export default function MediaCard(data) {
           <CalendarTodayIcon /> Date de sortie: {data.data.released}
         </Typography>
 
-
         {data.data.genres.map((tag) => (
           <Chip className={classes.chip} key={tag.id} label={tag.name} />
         ))}
-
 
         <Typography variant="body2" color="textSecondary" component="p" className={classes.typo}>
           <StarsIcon /> Classement: {data.data.ratings_count}
