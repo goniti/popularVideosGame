@@ -1,14 +1,7 @@
 import React from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
-import styled from 'styled-components'
+import { makeStyles, Card, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
+import { CalendarToday as CalendarTodayIcon, Stars as StarsIcon } from '@material-ui/icons'
 
-const Tag = styled.p`
-  color: #800080;
-`
 const useStyles = makeStyles({
   root: {
     flexBasis: 450,
@@ -17,6 +10,15 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  chip: {
+      margin: 2
+  },
+  typo: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    lineHeight:4
+  }
 })
 
 export default function MediaCard(data) {
@@ -29,16 +31,18 @@ export default function MediaCard(data) {
         <Typography gutterBottom variant="h5" component="h2">
           {data.data.name}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Date de sortie: {data.data.released}
+        <Typography variant="body2" color="textSecondary" component="p" className={classes.typo}>
+          <CalendarTodayIcon /> Date de sortie: {data.data.released}
         </Typography>
 
+
         {data.data.genres.map((tag) => (
-          <Tag key={tag.id}>{tag.name}</Tag>
+          <Chip className={classes.chip} key={tag.id} label={tag.name} />
         ))}
 
-        <Typography variant="body2" color="textSecondary" component="p">
-          Classement: {data.data.ratings_count}
+
+        <Typography variant="body2" color="textSecondary" component="p" className={classes.typo}>
+          <StarsIcon /> Classement: {data.data.ratings_count}
         </Typography>
       </CardContent>
     </Card>

@@ -1,19 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const Container = styled.main`
-  display: flex;
-`
-const Content = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`
+import Box from '@material-ui/core/Box'
 
 const Main = ({ children }) => (
-  <Container>
-    <Content>{children}</Content>
-  </Container>
+  <Box component="main" width="100%" display="flex" flexWrap="wrap" justifyContent="space-around">
+    {children}
+  </Box>
 )
 
 export default Main

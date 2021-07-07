@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import { Typography } from '@material-ui/core'
 
-const Title = styled.h1`
-  font-size: 2rem;
-`
-
-const Header = () => <Title> List Popular Videos Game </Title>
+const Header = () => (
+  <Typography variant="h2" component="h1" gutterBottom>
+    List Popular Videos Game
+  </Typography>
+)
 
 export default Header
